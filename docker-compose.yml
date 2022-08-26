@@ -49,7 +49,7 @@ services:
     container_name: chat-demo-backend
     volumes:
       # - "chat-demo-socket:/var/run/php-fpm/"
-      - ./backend:/var/www/html
+      - ./backend:/var/www/
       - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     depends_on:
