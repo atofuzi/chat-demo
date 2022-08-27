@@ -1,4 +1,6 @@
-APP_NAME=chat-demo-app
+BACKEND=chat-demo-backend 
+FRONTEND=chat-demo-frontend
+DB_NAME=chat-demo-db
 
 build:
 	docker-compose build
@@ -18,20 +20,24 @@ down:
 	docker-compose down
 
 sh:
-	docker exec -it $(APP_NAME) /bin/sh
+	docker exec -it $(BACKEND) /bin/sh
 
 install:
 	docker-compose up -d --build; \
-	docker-compose exec $(APP_NAME)  composer install;
+	docker-compose exec $(BACKEND)  composer install; \
+	docker-compose exec $(FRONTEND) yarn install;
+
+key:
+	docker-compose exec $(BACKEND)  php artisan key:generate
 
 migrate:
-	 docker-compose exec $(APP_NAME) php artisan migrate
+	 docker-compose exec $(BACKEND) php artisan migrate
 
 dbseed:
-	docker-compose exec $(APP_NAME) php artisan db:seed
+	docker-compose exec $(BACKEND) php artisan db:seed
 
 log:
-	docker logs -f ${APP_NAME}
+	docker logs -f ${BACKEND}
 
 log_db:
 	docker-compose logs -f ${DB_NAME}
