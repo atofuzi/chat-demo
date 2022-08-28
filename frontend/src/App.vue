@@ -1,15 +1,16 @@
 <template>
 <div>
-  <div class="bg-gradient-to-tl from-cyan-500 to-blue-700">
-    <div class="max-w-xl mx-auto px-6 text-center h-screen">
-      <h1 class="text-3xl duration-75 ease-in-out text-white">Welcome</h1>
-      <form class="py-4">
-        <input class="block mx-auto my-3 p-2 w-10/12 text-center border border-white/40 bg-white/20 rounded appearance-none text-white placeholder:text-white" type="text" placeholder="Username">
-        <input class="block mx-auto my-3 p-2 w-10/12 text-center border border-white/40 bg-white/20 rounded appearance-none text-white placeholder:text-white" type="password" placeholder="Password">
-        <button class="block mx-auto my-3 p-2 w-10/12 text-center border border-white bg-white rounded" type="submit" id="login-button">Login</button>
-      </form>
-    </div>
-  </div>
+  <header class="flex h-10 leading-10 justify-between">
+    <h1 class="ml-2">Chat Demo</h1>
+    <!-- use the router-link component for navigation. -->
+    <!-- specify the link by passing the `to` prop. -->
+    <!-- `<router-link>` will render an `<a>` tag with the correct `href` attribute -->
+    <nav class="space-x-2">
+      <router-link to="/home">Home</router-link>
+      <router-link to="/login">Login</router-link>
+    </nav>
+  </header>
+  <router-view></router-view>
 </div>
 </template>
 
