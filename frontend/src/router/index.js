@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/pages/HomePage.vue';
 import LoginFromPage from '@/pages/LoginFormPage.vue';
+import SampleVuex from '@/pages/SampleVuex.vue';
 
 const routes = [
   { path: '/Home', component: HomePage },
-  { path: '/login', component: LoginFromPage }
+  { path: '/login', component: LoginFromPage },
+  { path: '/sample/vuex', component: SampleVuex },
 ]
 
 
