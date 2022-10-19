@@ -14,7 +14,7 @@ jobs:
     - name: dokcer-compose up
       run: |
         # docker-compose build
-        docker-compose up -d
+        docker-compose up -d --wait
     - name: composer install
       run: |
         docker exec chat-demo-backend  /bin/sh -c "composer install"
