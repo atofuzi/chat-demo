@@ -4,6 +4,8 @@ volumes:
   # name: chat-demo-socket
   chat-demo-node-modules:
     name: chat-demo-node-modules
+  chat-demo-db-testing-volume:
+    name: chat-demo-db-testing-volume
 
 networks:
   chat-demo-network:
@@ -81,3 +83,36 @@ services:
       MYSQL_PASSWORD: chat
       TZ: 'Asia/Tokyo'
     command: --default-authentication-plugin=mysql_native_password
+
+  chat-demo-db-testing:
+    image: mysql:8.0
+    networks:
+      - chat-demo-network
+    ports:
+      - 53306:3306
+    volumes:
+      - chat-demo-db-testing-volume:/var/lib/mysql
+      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: chat
+      MYSQL_DATABASE: chat_db_testing
+      MYSQL_USER: chat
+      MYSQL_PASSWORD: chat
+      TZ: 'Asia/Tokyo'
+    ## ログをターミナルに標準出力する
+    command:  >
+      bash -c '
+      touch /var/log/general.log &&
+      chown mysql:mysql /var/log/general.log &&
+      tail -f /var/log/general.log &
+      /entrypoint.sh mysqld
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --general-log=true
+      --general-log-file=/var/log/general.log
+      --default-authentication-plugin=mysql_native_password
+      '
+    logging:
+      options:
+        max-size: "10k"
+        max-file: "5"
