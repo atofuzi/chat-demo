@@ -21,6 +21,11 @@ jobs:
     - name: composer install
       run: |
         docker exec chat-demo-backend  /bin/sh -c "composer install"
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
     - name: phpunit
+      env:
+        DB_CONNECTION: mysql_testing
+        DB_DATABASE: chat_db_testing
       run: |
         docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
