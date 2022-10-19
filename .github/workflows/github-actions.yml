@@ -23,14 +23,20 @@ jobs:
         docker exec chat-demo-backend  /bin/sh -c "composer install"
     - name: Copy .env
       run: docker exec chat-demo-backend php -r "file_exists('.env') || copy('.env.testing', '.env');"
+    - name: Wait for starting
+      run: |
+        set -x
+        until [ "$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q chat-demo-db-testing))" = 'healthy' ]; do
+          sleep 20s
+        done
     - name: phpunit
-      env:
-        DB_CONNECTION: mysql_testing
-        DB_DATABASE: chat_db_testing
-        DB_TESTING_HOST: chat-demo-db-testing
-        DB_TESTING_PORT: 3306
-        DB_TESTING_DATABASE: chat_db_testing
-        DB_TESTING_USERNAME: chat
-        DB_TESTING_PASSWORD: chat
+      # env:
+      #   DB_CONNECTION: mysql_testing
+      #   DB_DATABASE: chat_db_testing
+      #   DB_TESTING_HOST: chat-demo-db-testing
+      #   DB_TESTING_PORT: 3306
+      #   DB_TESTING_DATABASE: chat_db_testing
+      #   DB_TESTING_USERNAME: chat
+      #   DB_TESTING_PASSWORD: chat
       run: |
         docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
