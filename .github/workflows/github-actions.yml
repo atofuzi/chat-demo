@@ -25,10 +25,8 @@ jobs:
       run: docker exec chat-demo-backend php -r "file_exists('.env') || copy('.env.testing', '.env');"
     - name: Wait for starting
       run: |
-        set -x
-        until [ "$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q chat-demo-db-testing))" = 'healthy' ]; do
-          sleep 20s
-        done
+        sleep 20s
+ 
     - name: phpunit
       # env:
       #   DB_CONNECTION: mysql_testing
