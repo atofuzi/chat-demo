@@ -22,7 +22,7 @@ jobs:
       run: |
         docker exec chat-demo-backend  /bin/sh -c "composer install"
     - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
+      run: docker exec chat-demo-backend php -r "file_exists('.env') || copy('.env.testing', '.env');"
     - name: phpunit
       env:
         DB_CONNECTION: mysql_testing
