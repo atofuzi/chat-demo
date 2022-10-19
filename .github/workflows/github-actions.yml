@@ -27,5 +27,10 @@ jobs:
       env:
         DB_CONNECTION: mysql_testing
         DB_DATABASE: chat_db_testing
+        DB_TESTING_HOST: chat-demo-db-testing
+        DB_TESTING_PORT: 3306
+        DB_TESTING_DATABASE: chat_db_testing
+        DB_TESTING_USERNAME: chat
+        DB_TESTING_PASSWORD: chat
       run: |
         docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
