@@ -19,7 +19,7 @@ jobs:
       run: |
         docker-compose -v
 
-    - name: docker-compose up chat-demo-db-testing
+    - name: docker-compose up
       run: |
         docker-compose build chat-demo-db-testing |
         docker-compose build chat-demo-db |
