@@ -14,9 +14,17 @@ jobs:
     - name: docker-compose version
       run: |
         docker-compose -v
-    - name: dokcer-compose up
+    - name: dokcer-compose up chat-demo-db-testing
       run: |
         docker-compose build chat-demo-db-testing |
+        docker-compose up -d chat-demo-db-testing |
+    - name: Wait for starting
+      run: |
+        set -x
+        until [ "$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q chat-demo-db-testing))" = 'healthy' ]; do
+          sleep 1s
+        done
+
         docker-compose build chat-demo-db |
         docker-compose build chat-demo-backend |
         docker-compose up -d chat-demo-db-testing chat-demo-db  chat-demo-backend

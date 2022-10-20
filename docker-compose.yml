@@ -117,6 +117,7 @@ services:
         max-size: "10k"
         max-file: "5"
     healthcheck:
-            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-            timeout: 20s
-            retries: 10
+        test: ["CMD", "mysqladmin", "ping"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
