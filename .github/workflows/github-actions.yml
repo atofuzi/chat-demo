@@ -19,7 +19,7 @@ jobs:
         docker-compose build chat-demo-db-testing |
         docker-compose build chat-demo-db |
         docker-compose build chat-demo-backend |
-        docker-compose up -d
+        docker-compose up -d chat-demo-db-testing chat-demo-db  chat-demo-backend
     - name: composer install
       run: |
         docker exec chat-demo-backend  /bin/sh -c "composer install"
