@@ -99,7 +99,7 @@ services:
       MYSQL_USER: chat
       MYSQL_PASSWORD: chat
       TZ: 'Asia/Tokyo'
-    ## ログをターミナルに標準出力する
+    ## ログをターミナルに標準出力する確認
     command:  >
       bash -c '
       touch /var/log/general.log &&
@@ -111,6 +111,10 @@ services:
       --general-log=true
       --general-log-file=/var/log/general.log
       --default-authentication-plugin=mysql_native_password
+      --health-cmd="mysqladmin ping"
+      --health-interval=10s
+      --health-timeout=5s
+      --health-retries=3
       '
     logging:
       options:
