@@ -11,40 +11,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+
+    - uses: satackey/action-docker-layer-caching@v0.0.11
+      continue-on-error: true
+
     - name: docker-compose version
       run: |
         docker-compose -v
+
     - name: docker-compose up chat-demo-db-testing
       run: |
         docker-compose build chat-demo-db-testing |
         docker-compose build chat-demo-db |
         docker-compose build chat-demo-backend |
         docker-compose up -d chat-demo-db-testing chat-demo-db  chat-demo-backend
+    
     - name: Wait for starting
       run: |
         set -x
         until [ "$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q chat-demo-db-testing))" = 'healthy' ]; do
           sleep 1s
         done
+    
     - name: composer install
       run: |
         docker exec chat-demo-backend  /bin/sh -c "composer install"
-    - name: Copy .env
-      run: docker exec chat-demo-backend php -r "file_exists('.env') || copy('.env.testing', '.env');"
-    # - name: Wait for starting
-    #   run: |
-    #     sleep 20s
-    - name: ls
-      run: |
-        ls
+    
     - name: phpunit
-      # env:
-      #   DB_CONNECTION: mysql_testing
-      #   DB_DATABASE: chat_db_testing
-      #   DB_TESTING_HOST: chat-demo-db-testing
-      #   DB_TESTING_PORT: 3306
-      #   DB_TESTING_DATABASE: chat_db_testing
-      #   DB_TESTING_USERNAME: chat
-      #   DB_TESTING_PASSWORD: chat
       run: |
         docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
