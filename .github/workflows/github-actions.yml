@@ -26,6 +26,9 @@ jobs:
     - name: Wait for starting
       run: |
         sleep 20s
+    - name: ls
+      run: |
+        ls
  
     - name: phpunit
       # env:
