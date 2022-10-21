@@ -9,29 +9,65 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      db:
+        image: mysql:8.0
+        ports:
+          - 53306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: chat
+          MYSQL_DATABASE: chat_db_testing
+          MYSQL_USER: chat
+          MYSQL_PASSWORD: chat
+        options: >-
+          --health-cmd "mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
     - uses: actions/checkout@v3
+    
+    - uses: shogo82148/actions-setup-mysql@v1
+      with:
+        mysql-version: '8.0'
+        root-password: chat
+        my-cnf: |
+          [mysqld]
+          character-set-server=utf8mb4
+          collation-server=utf8mb4_unicode_ci
+
+          log_bin_trust_function_creators=1
+
+          [client]
+          default-character-set=utf8mb4
 
     - uses: satackey/action-docker-layer-caching@v0.0.11
       continue-on-error: true
+
+
 
     - name: docker-compose version
       run: |
         docker-compose -v
 
+    # - name: docker-compose up
+    #   run: |
+    #     docker-compose build chat-demo-db-testing |
+    #     docker-compose build chat-demo-db |
+    #     docker-compose build chat-demo-backend |
+    #     docker-compose up -d chat-demo-db-testing chat-demo-db  chat-demo-backend
+    
     - name: docker-compose up
       run: |
-        docker-compose build chat-demo-db-testing |
         docker-compose build chat-demo-db |
         docker-compose build chat-demo-backend |
-        docker-compose up -d chat-demo-db-testing chat-demo-db  chat-demo-backend
-    
-    - name: Wait for starting
-      run: |
-        set -x
-        until [ "$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q chat-demo-db-testing))" = 'healthy' ]; do
-          sleep 1s
-        done
+        docker-compose up -d chat-demo-db  chat-demo-backend
+    # - name: Wait for starting
+    #   run: |
+    #     set -x
+    #     until [ "$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q chat-demo-db-testing))" = 'healthy' ]; do
+    #       sleep 1s
+    #     done
     
     - name: composer install
       run: |
