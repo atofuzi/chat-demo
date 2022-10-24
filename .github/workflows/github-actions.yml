@@ -30,6 +30,10 @@ jobs:
     - uses: satackey/action-docker-layer-caching@v0.0.11
       continue-on-error: true
 
+    - name: .env copy for docker
+      run: |
+        cp -a .env.docker .env 
+
     - name: docker-compose version
       run: |
         docker-compose -v
