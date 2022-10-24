@@ -2,9 +2,20 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/pages/HomePage.vue';
 import LoginFromPage from '@/pages/LoginFormPage.vue';
 import SampleVuex from '@/pages/SampleVuex.vue';
+import ChatPageVue from '@/pages/ChatPage.vue';
 
 const routes = [
-  { path: '/Home', component: HomePage },
+  { path: '/chat/:id?',
+    component: ChatPageVue,
+    props: true
+    // //children: [
+    //   { 
+          //   path: '',
+          //   component: ChatRoomVue,
+          // }
+    // ]
+  },
+  { path: '/home', component: HomePage },
   { path: '/login', component: LoginFromPage },
   { path: '/sample/vuex', component: SampleVuex },
 ]

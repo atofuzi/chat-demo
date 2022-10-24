@@ -3,14 +3,14 @@
   <HeaderNavigator></HeaderNavigator>
   <SideMenu></SideMenu>
   <router-view></router-view>
-  
 </div>
+
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import HeaderNavigator from './components/Layout/parts/HeaderNavigator.vue';
-import SideMenu from './components/Layout/parts/SideMenu.vue';
+import HeaderNavigator from '@/components/Layout/parts/HeaderNavigator.vue';
+import SideMenu from '@/components/Layout/parts/SideMenu.vue';
 
 export default {
   name: 'App',
