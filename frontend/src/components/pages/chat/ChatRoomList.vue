@@ -1,23 +1,25 @@
 <template>
-  <nav class="h-screen fixed top-16 w-80" style="overflow-y:scroll;">
-    <div @click="fetchChatRoom" v-for="chat in chatList" :key="chat.id" :data-chat-room-id="chat.id">
-            <div class="flex justify-start items-center h-20 mx-3 border-b border-gray-200">
-              {{ chat.name }}
-            </div>
-    </div>
-  </nav>  
+  <ul class="min-w-[320px] h-[calc(100vh-64px)] overflow-auto">
+    <li @click="fetchChatRoom" v-for="chat in chatList" :key="chat.id" :data-chat-room-id="chat.id" class="hover:bg-slate-200 active:bg-slate-300 focus:bg-slate-200">
+        <div class="flex justify-start items-center h-20 mx-3 border-b border-gray-200">
+          {{ chat.name }}
+        </div>
+    </li>
+  </ul>  
 </template>
 
 <script>
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
+// import { useRouter, useRoute } from 'vue-router'
 export default {
   setup() {
     const router = useRouter()
-    const route = useRoute()
+    // const route = useRoute()
+
 
     const fetchChatList = () => {
       let list = []
-      for (let i = 1; i <= 100; i++) {
+      for (let i = 1; i <= 20; i++) {
         list.push({'name': 'チャットルーム' + i, 'id': i });
       }
       return list;

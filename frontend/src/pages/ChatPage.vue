@@ -1,67 +1,86 @@
 <template>
 <div>
-  <main class="pt-16 pl-80">
-    <div v-for="n in 100" :key="n">
-      <div class="flex justify-start items-center h-20 mx-3 border-b border-gray-200">
-        <img class="h-8 w-8 rounded-full m-2" :src="icon" alt="">
-        <div >ここにメッセージが入ります</div>
+  <HeaderNavigator></HeaderNavigator>
+  <div class="flex">
+    <ChatRoomList></ChatRoomList>
+    <main class="flex flex-col h-[calc(100vh-64px)] w-full">
+      <div class="h-12 leading-[48px] text-center border-b bottom-1 shadow">チャットルーム{{ chatRoomId }}</div>
+      <div class="overflow-auto px-1 flex-1">
+        <ChatMessageList :chatRoomId="chatRoomId"></ChatMessageList>
       </div>
-    </div>
-    <div class="p-4">
-      <div>
-        <button>送信{{localStorageMessage}}</button>
+      <div class="">
+        <ChatMessageInput :chatRoomId="chatRoomId"></ChatMessageInput>
       </div>
-      <textarea v-model="chatMessage" name="" id="" cols="30" rows="7" class="w-full p-4 box-border border "></textarea>
-    </div>
-  </main>
-
-
+    </main>
+  </div>
 </div>
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue';
-import { useRoute } from 'vue-router' 
+import { ref, toRefs, watch } from 'vue';
+// import { useRoute } from 'vue-router'; 
+import HeaderNavigator from '@/components/base/HeaderNavigator.vue';
+import ChatRoomList from '@/components/pages/chat/ChatRoomList.vue';
+import ChatMessageList from '@/components/pages/chat/ChatMessageList.vue';
+import ChatMessageInput from '@/components/pages/chat/ChatMessageInput.vue';
+
 export default {
   name: 'ChatPage',
-  props: [
-    'id'
-  ],
-  setup() {
-    const route = useRoute();
-    const chatLoomId = computed( () => { return route.params });  
+  props: {
+    chatRoomId: String
+  },
+    components: {
+    HeaderNavigator,
+    ChatRoomList,
+    ChatMessageList,
+    ChatMessageInput
+  },
+  setup(props) {
+    // const route = useRoute();
+    /* const chatRoomId = computed( () => { return route.params });  */
 
     let chatMessage = ref('');
-
-    const getLocalStrageMessage = (chatLoomId) => {
-      // console.log(localStorage.getItem('draft_chatmessage_' + chatLoomId));
-      chatMessage.value = localStorage.getItem('draft_chatmessage_' + chatLoomId);
-      console.log(chatMessage.value); 
-    }
-
-    // onBeforeUpdate(() => {
-    //       console.log("on before update", chatLoomId)
-    // });
-    watch(chatLoomId , () => {
+    let { chatRoomId } = toRefs(props);
+    watch(chatRoomId , () => {
       // console.log(localStorage.getItem('draft_chatmessage_1'));
-      console.log('ローカルメッセージ取得');
-      console.log(chatLoomId.value.id);
-      getLocalStrageMessage(chatLoomId.value.id);
+      console.log(chatRoomId.value);
     })
-    console.log(chatLoomId);
     return {
-      chatLoomId,
       chatMessage,
     }
   },
-  data: function() {
-    return {
-      icon: "https://baboo-dev-s3.s3.ap-northeast-1.amazonaws.com/images/%E7%94%98%E9%9B%A8500.png",
-    }
-  }
 }
 </script>
 
 <style>
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
 
+.wrap {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1;
+}
+.side {
+  min-width: 300px;
+  background: #449fc3;
+  height: 100%;
+}
+header {
+  width: 100%;
+  background: #ccdd33;
+}
+footer {
+  width: 100%;
+  background: #44aa33;
+}
 </style>

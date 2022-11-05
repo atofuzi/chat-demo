@@ -2,17 +2,17 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/pages/HomePage.vue';
 import LoginFromPage from '@/pages/LoginFormPage.vue';
 import SampleVuex from '@/pages/SampleVuex.vue';
-import ChatPageVue from '@/pages/ChatPage.vue';
+import ChatPage from '@/pages/ChatPage.vue';
 
 const routes = [
-  { path: '/chat/:id?',
-    component: ChatPageVue,
-    props: true
-    // //children: [
+  { path: '/chat/:chatRoomId?',
+    component: ChatPage,
+    props: true,
+    // children: [
     //   { 
-          //   path: '',
-          //   component: ChatRoomVue,
-          // }
+    //         path: '',
+    //         component: ChatRoomVue,
+    //       }
     // ]
   },
   { path: '/home', component: HomePage },
