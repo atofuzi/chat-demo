@@ -6,7 +6,7 @@ export function getAllMessages () {
   // }, LATENCY)
 }
 
-export const createMessage = async ( chatRoomId, chatMessage, ) => {
+export const createMessage =  ( chatRoomId, chatMessage, ) => {
   return axios.post('chat/' + chatRoomId + '/message/', {
         chatMessage: chatMessage
       });
@@ -16,4 +16,8 @@ export const createMessage = async ( chatRoomId, chatMessage, ) => {
       // .catch(function (error) {
       //   console.log(error);
       // });
+}
+
+export const getChatRoomList = async () => {
+  return axios.get('/chat/rooms');
 }

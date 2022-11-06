@@ -15,7 +15,8 @@ class ChatRoomController extends Controller
      */
     public function index()
     {
-        //
+        $chatRooms = ChatRoom::all();
+        return $chatRooms->toJson();
     }
 
     /**

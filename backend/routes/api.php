@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatRoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/test', function () {
   return 'これはテストです';
+});
+
+Route::prefix('v1')->group(function () {
+  Route::get('/chat/rooms/', [ChatRoomController::class, 'index']);
 });

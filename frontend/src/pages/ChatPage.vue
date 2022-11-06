@@ -44,7 +44,8 @@ export default {
     watch(chatRoomId , () => {
       // console.log(localStorage.getItem('draft_chatmessage_1'));
       console.log(chatRoomId.value);
-    })
+    });
+
     return {
       chatMessage,
     }
