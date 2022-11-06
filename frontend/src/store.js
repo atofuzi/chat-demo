@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import { createMessage } from './api/chat';
 
 const store = createStore({
   state () {
@@ -25,6 +26,9 @@ const store = createStore({
     decrement(context, number) {
       context.commit('decrement', number);
     },
+    sendMessage (context, payload) {
+      return createMessage(payload.chatRoomId, payload.chatMessage);
+    }
   }
 });
 
