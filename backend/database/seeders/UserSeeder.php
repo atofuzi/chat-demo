@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -14,9 +15,16 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory()
-          ->count(10)
-          ->sequence(fn ($sequence) => ['email' => 'test' . $sequence->index . '@email.com'])
-          ->create();
+      if(User::exists()) {
+        User::truncate();
+      }
+      
+      \App\Models\User::factory()
+        ->count(10)
+        ->sequence(fn ($sequence) => [
+            'name' => 'テストユーザ' . $sequence->index,
+            'email' => 'test' . $sequence->index . '@email.com'
+          ])
+        ->create();
     }
 }

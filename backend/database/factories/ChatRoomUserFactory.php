@@ -17,7 +17,9 @@ class ChatRoomUserFactory extends Factory
     public function definition()
     {
         return [
-            //
+          'chat_room_id' => fake()->numberBetween(1, 100),
+          'user_id' => fake()->randomNumber(1, 10),
+          'read_message_id' => 0,
         ];
     }
 }

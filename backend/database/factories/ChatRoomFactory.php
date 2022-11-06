@@ -16,8 +16,9 @@ class ChatRoomFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
-        ];
+      return [
+        'name' => fake()->name(),
+        'is_active' => 1,
+    ];
     }
 }
