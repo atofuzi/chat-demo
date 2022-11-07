@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatMessageController;
 use App\Http\Controllers\ChatRoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,5 @@ Route::get('/test', function () {
 
 Route::prefix('v1')->group(function () {
   Route::get('/chat/rooms/', [ChatRoomController::class, 'index']);
+  Route::get('/chat/room/{id}/messages', [ChatMessageController::class, 'index']);
 });

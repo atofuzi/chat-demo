@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreChatMessageRequest;
 use App\Http\Requests\UpdateChatMessageRequest;
 use App\Models\ChatMessage;
+use Illuminate\Support\Facades\Log;
 
 class ChatMessageController extends Controller
 {
@@ -13,9 +14,10 @@ class ChatMessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($chatRoomId)
     {
-        //
+      $chatMessages = ChatMessage::where('chat_room_id', $chatRoomId)->orderBy('created_at', 'asc')->get();
+      return $chatMessages->toJson();
     }
 
     /**
@@ -47,7 +49,7 @@ class ChatMessageController extends Controller
      */
     public function show(ChatMessage $chatMessage)
     {
-        //
+      //
     }
 
     /**

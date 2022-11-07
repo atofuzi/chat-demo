@@ -1,9 +1,7 @@
 import axios from './index';
 
-export function getAllMessages () {
-  // setTimeout(() => {
-  //   cb(data)
-  // }, LATENCY)
+export function getAllMessageList (chatRoomId) {
+  return axios.get('/chat/room/' + chatRoomId + '/messages/');
 }
 
 export const createMessage =  ( chatRoomId, chatMessage, ) => {
