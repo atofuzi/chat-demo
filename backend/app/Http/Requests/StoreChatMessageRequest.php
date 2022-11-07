@@ -13,7 +13,9 @@ class StoreChatMessageRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        // TODO:ログイン機能実装時にfalseに戻す
+        // return false;
+        return true;
     }
 
     /**
@@ -24,7 +26,14 @@ class StoreChatMessageRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+          'chatMessage' =>  'required',
         ];
+    }
+
+    public function messages()
+    {
+      return [
+        'required' => 'メッセージを入力してください'
+      ]; 
     }
 }

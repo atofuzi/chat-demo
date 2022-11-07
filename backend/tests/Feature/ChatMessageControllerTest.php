@@ -20,4 +20,15 @@ class ChatMessageControllerTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_store()
+    {
+        $chatRoomId = 1;
+        $body = [
+          'chatMessage' => 'テストメッセージ'
+        ];
+        $response = $this->post("/api/v1/chat/room/${chatRoomId}/message/", $body);
+
+        $response->assertStatus(200);
+    }
 }

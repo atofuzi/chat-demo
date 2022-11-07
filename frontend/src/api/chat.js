@@ -5,15 +5,7 @@ export function getAllMessageList (chatRoomId) {
 }
 
 export const createMessage =  ( chatRoomId, chatMessage, ) => {
-  return axios.post('chat/' + chatRoomId + '/message/', {
-        chatMessage: chatMessage
-      });
-      // .then(function (response) {
-      //   console.log(response);
-      // })
-      // .catch(function (error) {
-      //   console.log(error);
-      // });
+  return axios.post('chat/room/' + chatRoomId + '/message/', { chatMessage: chatMessage });
 }
 
 export const getChatRoomList = async () => {

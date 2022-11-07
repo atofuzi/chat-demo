@@ -27,7 +27,7 @@ class ChatMessageController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -36,9 +36,18 @@ class ChatMessageController extends Controller
      * @param  \App\Http\Requests\StoreChatMessageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreChatMessageRequest $request)
+    public function store(StoreChatMessageRequest $request, $chartRoomId)
     {
-        //
+      // TODO:ログイン機能追加したら修正
+      $userId = 1;  
+      $message = $request->chatMessage;
+      $chatMessage = ChatMessage::create([
+        'user_id' => $userId,
+        'chat_room_id' => $chartRoomId,
+        'message' => $message,
+      ]);
+
+      return $chatMessage->toJson();
     }
 
     /**

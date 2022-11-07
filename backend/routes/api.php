@@ -28,4 +28,5 @@ Route::get('/test', function () {
 Route::prefix('v1')->group(function () {
   Route::get('/chat/rooms/', [ChatRoomController::class, 'index']);
   Route::get('/chat/room/{id}/messages', [ChatMessageController::class, 'index']);
+  Route::post('/chat/room/{id}/message', [ChatMessageController::class, 'store']);
 });
