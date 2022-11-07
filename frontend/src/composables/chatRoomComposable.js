@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { getChatRoomList } from '@/api/chat';
 
-const chatRoom = () => {
+const chatRoomComposable = () => {
   // チャットルーム全権取得
   const chatRoomList = ref([])
   const chatRoomListError = ref(null)
@@ -22,4 +22,4 @@ const chatRoom = () => {
   }
 }
 
-export default chatRoom
+export default chatRoomComposable

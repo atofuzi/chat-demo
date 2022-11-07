@@ -23,7 +23,7 @@ import HeaderNavigator from '@/components/base/HeaderNavigator.vue';
 import ChatRoomList from '@/components/pages/chat/ChatRoomList.vue';
 import ChatMessageList from '@/components/pages/chat/ChatMessageList.vue';
 import ChatMessageInput from '@/components/pages/chat/ChatMessageInput.vue';
-import chatRoom from '@/composables/chatRoom';
+import chatRoomComposable from '@/composables/chatRoomComposable';
 
 export default {
   name: 'ChatPage',
@@ -49,7 +49,7 @@ export default {
     } 
 
     // チャット一覧取得
-    const { chatRoomList, chatRoomListError, fetchChatRoomList} = chatRoom();
+    const { chatRoomList, chatRoomListError, fetchChatRoomList } = chatRoomComposable();
     fetchChatRoomList().then( () => {
       selectedChatRoomName.value = getChatRoomName(Number(chatRoomId.value)); 
     });
