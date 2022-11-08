@@ -37,7 +37,6 @@ export default {
     ChatMessageInput
   },
   setup(props) {
-
     let { chatRoomId } = toRefs(props);
     let selectedChatRoomName = ref('')
 

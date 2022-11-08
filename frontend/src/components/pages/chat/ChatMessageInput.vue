@@ -31,14 +31,11 @@ export default {
     }
 
     watch(chatRoomId, () => {
-      console.log(chatRoomId.value);
       clearMessage();
       getLocalStrageMessage(chatRoomId.value);
     })
   
     const sendMessage = async () => {
-      console.log('メッセージ送信');
-
       await store.dispatch('sendMessage', {
         chatRoomId: chatRoomId.value,
         chatMessage: chatMessage.value
@@ -48,7 +45,6 @@ export default {
       })
       .catch(function (error) {
         console.log(error);
-        console.log('失敗');
       });
       clearMessage();
     }
