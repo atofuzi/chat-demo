@@ -39,7 +39,7 @@ class ChatMessageController extends Controller
     public function store(StoreChatMessageRequest $request, $chartRoomId)
     {
       // TODO:ログイン機能追加したら修正
-      $userId = 1;  
+      $userId = $request->id;  
       $message = $request->chatMessage;
       $chatMessage = ChatMessage::create([
         'user_id' => $userId,
