@@ -79,9 +79,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 1
     steps:
-      - name: dump context
-        run: echo '${{ toJSON(github) }}'
-
       - uses: actions/checkout@v3
       - name: set current datetime to env
         env:
@@ -95,4 +92,7 @@ jobs:
           apiToken: ${{ secrets.CHATWORK_API_TOKEN }}
           roomId: ${{ secrets.CHATWORK_ROOM_ID }}
           message: ${{ steps.arguments.outputs.message }}
+      - name: dump context
+        run: echo '${{ toJSON(steps) }}'
+
   
