@@ -98,6 +98,9 @@ jobs:
       - name: exit log
         run: |
           exit
+      - name: ls
+        run: |
+          ls
       - name: show log
         run: |
           cat ./actions.log
