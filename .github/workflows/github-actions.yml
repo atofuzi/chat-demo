@@ -75,3 +75,21 @@ jobs:
     - name: phpunit
       run: |
         docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - uses: mechiru/chatwork@v2
+        with:
+          roomId: 299256157
+          token: ${{ secrets.CHATWORK_API_TOKEN }}
+          # mapping: |
+          #   {
+          #     "mechiru": "[To:123]@mechiru",
+          #   }
+          context: |
+              {
+                '送信テスト'
+              }
+
+
