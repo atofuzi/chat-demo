@@ -75,6 +75,10 @@ jobs:
     - name: phpunit
       run: |
         docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
+    
+    - name: dump context
+      run: echo '${{ toJSON(steps) }}'
+      
   notify:
     runs-on: ubuntu-latest
     timeout-minutes: 1
