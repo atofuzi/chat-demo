@@ -90,7 +90,7 @@ jobs:
       - uses: okuzawats/chatwork-messaging-action@v1.0
         with:
           apiToken: ${{ secrets.CHATWORK_API_TOKEN }}
-          roomId: ${{ secrets.ROOM_ID }}
+          roomId: ${{ secrets.CHATWORK_ROOM_ID }}
           message: ${{ steps.arguments.outputs.message }}
 
 
