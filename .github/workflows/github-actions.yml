@@ -80,6 +80,9 @@ jobs:
     timeout-minutes: 1
     steps:
       - uses: actions/checkout@v3
+      - name: start log 
+        run: |
+          script actions.log
       - name: set current datetime to env
         env:
           TZ: 'Asia/Tokyo'
@@ -92,5 +95,11 @@ jobs:
           apiToken: ${{ secrets.CHATWORK_API_TOKEN }}
           roomId: ${{ secrets.CHATWORK_ROOM_ID }}
           message: ${{ steps.arguments.outputs.message }}
+      - name: exit log
+        run: |
+          exit
+      - name: show log
+        run: |
+          cat ./actions.log
 
 
