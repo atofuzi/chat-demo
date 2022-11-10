@@ -18,7 +18,7 @@ class ChatMessageControllerTest extends TestCase
     {
         $response = $this->get('/api/v1/chat/room/1/messages/');
 
-        $response->assertStatus(200);
+        $response->assertStatus(100);
     }
 
     public function test_store()
@@ -26,7 +26,7 @@ class ChatMessageControllerTest extends TestCase
         $chatRoomId = 1;
         $body = [
           'chatMessage' => 'テストメッセージ'
-        ];
+        ]
         $response = $this->post("/api/v1/chat/room/${chatRoomId}/message/", $body);
 
         $response->assertStatus(200);
