@@ -83,13 +83,8 @@ jobs:
         with:
           roomId: 299256157
           token: ${{ secrets.CHATWORK_API_TOKEN }}
-          # mapping: |
-          #   {
-          #     "mechiru": "[To:123]@mechiru",
-          #   }
-          context: |
-              {
-                '送信テスト'
-              }
+          mapping: |
+            {}
+          context: ${{ toJson(github) }}
 
 
