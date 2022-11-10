@@ -5,8 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\ChatRoom;
 
-class UserSeeder extends Seeder
+class ChatRoomSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,16 +16,16 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-      if(User::exists()) {
-        User::truncate();
+      if(ChatRoom::exists()) {
+        // return;
+        ChatRoom::truncate(); 
       }
       
-      \App\Models\User::factory()
+      ChatRoom::factory()
         ->count(10)
         ->sequence(fn ($sequence) => [
-            'name' => 'テストユーザ' . $sequence->index,
-            'email' => 'test' . $sequence->index . '@email.com'
-          ])
+          'name' => 'チャットルーム' . $sequence->index + 1,
+        ])
         ->create();
     }
 }

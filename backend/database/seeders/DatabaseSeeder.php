@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\ChatRoom;
+use App\Models\ChatRoomUser;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +26,9 @@ class DatabaseSeeder extends Seeder
       
         $this->call([
           UserSeeder::class,
+          ChatRoomSeeder::class,
+          ChatMessageSeeder::class,
+          ChatRoomUserSeeder::class
       ]);
     }
 }
