@@ -4,6 +4,8 @@ volumes:
   # name: chat-demo-socket
   chat-demo-node-modules:
     name: chat-demo-node-modules
+  chat-demo-socket-node-modules:
+    name: chat-demo-socket-node-modules
   # chat-demo-db-testing-volume:
   #   name: chat-demo-db-testing-volume
 
@@ -123,3 +125,15 @@ services:
         interval: 10s
         timeout: 5s
         retries: 5
+
+  chat-demo-socket:
+    build:
+      context: .
+      dockerfile: ./docker/socket/Dockerfile
+    container_name: chat-demo-socket
+    networks:
+      - chat-demo-network
+    volumes:
+      - ./socket:/var/www
+      - chat-demo-socket-node-modules:/var/www/node_modules
+    command: sh -c "yarn install && yarn start"
