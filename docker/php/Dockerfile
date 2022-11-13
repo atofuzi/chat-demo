@@ -6,9 +6,16 @@ RUN apk update && apk add \
     freetype-dev \
 		libjpeg-turbo-dev \
     libpng-dev \
+    autoconf \
+    gcc \
+    g++ \
+    make\
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
 	&& docker-php-ext-install -j$(nproc) gd \
   pdo_mysql
+
+RUN pecl install redis \
+    && docker-php-ext-enable redis 
 
 
 ENV TZ=Asia/Tokyo \
