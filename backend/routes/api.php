@@ -29,4 +29,6 @@ Route::prefix('v1')->group(function () {
   Route::get('/chat/rooms/', [ChatRoomController::class, 'index']);
   Route::get('/chat/room/{id}/messages', [ChatMessageController::class, 'index']);
   Route::post('/chat/room/{id}/message', [ChatMessageController::class, 'store']);
+  // リアルタイム通信テスト用のRoute TODO:削除する
+  Route::get('/chat/room/{id}/message/action', [ChatMessageController::class, 'action']);
 });

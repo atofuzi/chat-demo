@@ -44,3 +44,6 @@ log_db:
 
 ps:
 	docker-compose ps
+
+c_clear:
+	docker-compose exec $(BACKEND)  php artisan cache:clear;

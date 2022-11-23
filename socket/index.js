@@ -1,6 +1,6 @@
 const express = require('express');
 const http = require('http');
-
+require('dotenv').config();
 const socketIo = require('socket.io');
 
 const app = express();
@@ -13,7 +13,7 @@ const io = socketIo(server, {
   }
 });
 
-const PORT = 3000;
+const PORT = process.env.BROADCAST_PORT;
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
@@ -22,6 +22,29 @@ app.get('/', (req, res) => {
 server.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
+
+const redisPort = process.env.REDIS_PORT;
+const redisHost = process.env.REDIS_HOST;
+
+console.log(redisPort);
+console.log(redisHost);
+
+const ioRedis = require('ioredis');
+
+const redis = ioRedis.createClient({
+  host: redisHost,
+  port: redisPort,
+  password: null
+});
+
+redis.subscribe('action-channel-one');
+
+redis.on('message', (channel, message) => {
+  const data = JSON.parse(message);
+  const msg = data.data.actionData;
+  io.emit('receiveMessage', msg);
+});
+
 
 io.on('connection', (socket) => {
   console.log('user connected');
