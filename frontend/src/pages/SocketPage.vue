@@ -12,10 +12,14 @@
 <script>
 import { io } from "socket.io-client";
 import { reactive, ref } from '@vue/reactivity';
+import { useStore } from 'vuex';
 
 export default {
   name: 'HomePage',
   setup() {
+    const store = useStore();
+    store.dispatch("socketOnChatRoomReceived");
+
     const message = ref('');
     const messageList = reactive([]);
     const socket = io('ws://localhost:8087', {
