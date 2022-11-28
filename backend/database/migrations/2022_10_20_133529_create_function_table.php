@@ -13,11 +13,12 @@ return new class extends Migration
      * @return void
      */
     public function up()
-    { 
+    {
+        DB::unprepared('DROP FUNCTION IF EXISTS grade');
         DB::unprepared('
         CREATE FUNCTION grade (grade_point INT)
             RETURNS VARCHAR(15)
-            RETURN 
+            RETURN
                 CASE
                     WHEN grade_point >= 90 THEN "EXCELLENT"
                     WHEN grade_point >= 80 THEN "GOOD"

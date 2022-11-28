@@ -1,2 +1,7 @@
-/docker/db/data
+docker/db/data
+docker/redis/data
+socket/node_modules
+
+
 .env
+
