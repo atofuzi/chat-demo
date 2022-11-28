@@ -49,10 +49,6 @@ class ChatMessageController extends Controller
             'message' => $message,
         ]);
 
-        Redis::publish('test-channel', json_encode([
-            'name' => 'Adam Wathan'
-        ]));
-
         return $chatMessage->toJson();
     }
 
