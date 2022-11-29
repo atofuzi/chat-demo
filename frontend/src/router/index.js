@@ -4,6 +4,7 @@ import LoginFromPage from '@/pages/LoginFormPage.vue';
 import SampleVuex from '@/pages/SampleVuex.vue';
 import ChatPage from '@/pages/ChatPage.vue';
 import SocketPage from '@/pages/SocketPage.vue';
+import Tab from '@/pages/Tab.vue';
 
 const routes = [
   { path: '/chat/:chatRoomId?',
@@ -19,7 +20,8 @@ const routes = [
   { path: '/home', component: HomePage },
   { path: '/login', component: LoginFromPage },
   { path: '/sample/vuex', component: SampleVuex },
-  { path: '/socket', component: SocketPage}
+  { path: '/socket', component: SocketPage},
+  { path: '/tab', component: Tab}
 ]
 
 
