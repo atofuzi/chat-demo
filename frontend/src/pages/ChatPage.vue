@@ -1,19 +1,22 @@
 <template>
-<div>
-  <HeaderNavigator></HeaderNavigator>
-  <div class="flex">
-    <ChatRoomList @clickListItem="selectedChatRoom" :chatRoomList="chatRoomList" ></ChatRoomList>
-    <main class="flex flex-col h-[calc(100vh-64px)] w-full">
-      <div class="h-12 leading-[48px] text-center border-b bottom-1 shadow">{{ chatRoomName }}</div>
-      <div class="overflow-auto px-1 flex-1">
-        <ChatMessageList :chatRoomId="chatRoomId"></ChatMessageList>
-      </div>
-      <div class="">
-        <ChatMessageInput :chatRoomId="chatRoomId"></ChatMessageInput>
-      </div>
-    </main>
+  <div>
+    <HeaderNavigator></HeaderNavigator>
+    <div class="flex">
+      <ChatRoomList @clickListItem="selectedChatRoom" :chatRoomList="chatRoomList" ></ChatRoomList>
+      <main class="flex flex-col h-[calc(100vh-64px)] w-full">
+        <div class="h-12 leading-[48px] text-center border-b bottom-1 shadow">{{ chatRoomName }}</div>
+        <div class="overflow-auto px-1 flex-1">
+          <ChatMessageList :chatRoomId="chatRoomId"></ChatMessageList>
+        </div>
+        <div class="">
+          <ChatMessageInput :chatRoomId="chatRoomId"></ChatMessageInput>
+          <!-- <div class="absolute top-0 left-0 border border-dashed h-full w-full flex justify-center items-center">
+            ファイルをアップロード
+          </div> -->
+        </div>
+      </main>
+    </div>
   </div>
-</div>
 </template>
 
 <script>

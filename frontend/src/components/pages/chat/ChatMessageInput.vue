@@ -1,7 +1,22 @@
 <template>
   <div class="bg-slate-100">
     <button @click='sendMessage()' class="mx-2 my-1 px-2 py-1 rounded-lg bg-slate-400 active:bg-slate-500">送信</button>
-    <textarea @input="setLocalStrageMessage()" v-model="chatMessage" name="" id="" cols="30" rows="5" class="w-full p-2 box-border border "></textarea>
+    <div class="relative"
+      @dragenter="dragEnter"
+      >
+      <textarea
+        @input="setLocalStrageMessage()"
+        v-model="chatMessage"
+        name=""
+        id=""
+        cols="30"
+        rows="5"
+        class="w-full p-2 box-border border"></textarea>
+        <div @dragleave="dragLeave" v-if="showFileUploadArea" class="absolute top-0 left-0  h-full w-full flex justify-center items-center outline-dashed outline-offset-[-10px]">
+          ファイルをアップロード
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -48,11 +63,25 @@ export default {
       });
       clearMessage();
     }
+    let showFileUploadArea = ref(false);
+    
+    const dragEnter = () => {
+      console.log('enter');
+      showFileUploadArea.value = true;
+    };
+
+    const dragLeave = () => {
+      console.log('reave');
+      showFileUploadArea.value = false;
+    }
 
     return {
       chatMessage,
       setLocalStrageMessage,
-      sendMessage
+      sendMessage,
+      dragEnter,
+      dragLeave,
+      showFileUploadArea
     }
   }
 }
