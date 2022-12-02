@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
@@ -26,7 +26,7 @@ Route::get('/test', function () {
 });
 
 Route::prefix('v1')->group(function () {
-  Route::get('/chat/rooms/', [ChatRoomController::class, 'index']);
+  Route::middleware('auth:api')->get('/chat/rooms/', [ChatRoomController::class, 'index']);
   Route::get('/chat/room/{id}/messages', [ChatMessageController::class, 'index']);
   Route::post('/chat/room/{id}/message', [ChatMessageController::class, 'store']);
   // リアルタイム通信テスト用のRoute TODO:削除する

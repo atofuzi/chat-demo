@@ -8,7 +8,7 @@ const chatRoomComposable = () => {
   const fetchChatRoomList = async () => {
     try {
       const response = await getChatRoomList();
-      chatRoomList.value = response.data;
+      chatRoomList.value = response.data.data;
     } catch (err) {
       chatRoomListError.value = err.message
       console.log(chatRoomListError.value);

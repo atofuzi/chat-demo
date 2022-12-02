@@ -41,4 +41,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isOperator ()
+    {
+        if($this->roles[0]->pivot->role_id === 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function roles() {
+        return $this->belongsToMany('App\Models\Role')
+            ->withPivot('role_id');
+    }
 }

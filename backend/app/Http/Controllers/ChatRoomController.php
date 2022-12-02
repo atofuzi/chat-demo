@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreChatRoomRequest;
 use App\Http\Requests\UpdateChatRoomRequest;
 use App\Models\ChatRoom;
+use App\Http\Resources\ChatRoomCollection;
+use Illuminate\Http\Request;
 
 class ChatRoomController extends Controller
 {
@@ -13,10 +15,12 @@ class ChatRoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $chatRooms = ChatRoom::all();
-        return $chatRooms->toJson();
+        $chatRooms = ChatRoom::paginate(5);
+        return new ChatRoomCollection($chatRooms);
+        // $chatRoomsArray = $chatRooms->toArray();
+        // return new ChatRoomCollection(collect($chatRoomsArray));
     }
 
     /**
