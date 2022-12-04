@@ -1,7 +1,7 @@
 docker/db/data
 docker/redis/data
+docker/minio/data
 socket/node_modules
-
 
 .env
 
