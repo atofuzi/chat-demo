@@ -21,8 +21,7 @@ export default {
 
     const { chatRoomId } = toRefs(props);
     const { messageList, messageListError, fetchChatMessageList } = chatMessageComposable();
-    const icon =  "https://baboo-dev-s3.s3.ap-northeast-1.amazonaws.com/images/%E7%94%98%E9%9B%A8500.png";
-    
+    const icon =  process.env.VUE_APP_ASW_S3_HOST + process.env.VUE_APP_AWS_S3_BUCKET + "kanu.png";
     watch(chatRoomId, () => { 
       fetchChatMessageList(chatRoomId.value);
     });
