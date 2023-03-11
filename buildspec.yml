@@ -9,7 +9,6 @@ phases:
       - yarn install
   build:
     commands:
-      - cd frontend
       - yarn build
   post_build:
     commands:
