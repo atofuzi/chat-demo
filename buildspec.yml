@@ -5,11 +5,11 @@ phases:
     runtime-versions:
       nodejs: 16
     commands:
-      - cd /frontend
+      - cd frontend
       - yarn install
   build:
     commands:
-      - cd /frontend
+      - cd frontend
       - yarn build
   post_build:
     commands:
