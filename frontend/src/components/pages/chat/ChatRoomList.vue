@@ -11,7 +11,10 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+import { io } from "socket.io-client";
+import { reactive, ref } from '@vue/reactivity';
 
 // import { useRouter, useRoute } from 'vue-router'
 export default {
@@ -26,8 +29,35 @@ export default {
       emit('clickListItem', chatRoom.id);
       router.push('/chat/' + chatRoom.id );
     }
+
+    const store = useStore();
+    store.dispatch("socketOnChatRoomReceived");
+
+    const message = ref('');
+    const messageList = reactive([]);
+    const socket = io('ws://localhost:8087', {
+      withCredentials: true,
+    });
+
+    const sendButton = () => {
+      
+      if(message.value === '') {
+        return;
+      }
+      console.log('送信');
+      socket.emit('sendMessage', message.value);
+      message.value = '';
+    }
+
+    socket.on('receiveMessage', (message) => {
+      messageList.push(message);
+    })
+  
     return {
-      fethChatRoom
+      fethChatRoom,
+      message,
+      messageList,
+      sendButton,
     }
   }
 

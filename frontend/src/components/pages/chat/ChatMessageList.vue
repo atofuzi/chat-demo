@@ -1,9 +1,8 @@
 <template>
   <div> 
     <template v-if="messageList.length">
-      <div v-for="message in messageList" :key="message.id" class="flex justify-start items-center h-20 mx-3 border-b border-gray-300">
-        <img class="h-8 w-8 rounded-full m-2" :src="icon" alt="">
-        <div>{{ message.message }}</div>
+      <div v-for="message in messageList" :key="message.id" class="flex flex-row justify-start items-center mx-3 border-b border-gray-300  hover:bg-gray-100">
+        <ChatMessageItem :messageInfo="message" />
       </div>
     </template>
 </div>
@@ -12,16 +11,20 @@
 <script>
 import { toRefs, watch } from 'vue'; 
 import chatMessageComposable from '@/composables/chatMessageComposable.js'
+import ChatMessageItem from '@/components/pages/chat/ChatMessageItem.vue';
 
 export default {
   props: {
     chatRoomId: String
   },
+  components: {
+    ChatMessageItem
+  },
   setup(props) {
 
     const { chatRoomId } = toRefs(props);
     const { messageList, messageListError, fetchChatMessageList } = chatMessageComposable();
-    const icon =  process.env.VUE_APP_ASW_S3_HOST + process.env.VUE_APP_AWS_S3_BUCKET + "kanu.png";
+
     watch(chatRoomId, () => { 
       fetchChatMessageList(chatRoomId.value);
     });
@@ -29,9 +32,8 @@ export default {
     fetchChatMessageList(chatRoomId.value);
 
     return {
-      icon,
       messageList,
-      messageListError
+      messageListError,
     }
   }
 }

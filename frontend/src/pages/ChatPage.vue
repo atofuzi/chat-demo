@@ -63,7 +63,7 @@ export default {
 
     const chatRoomName = computed( () => {
       return selectedChatRoomName.value
-    }) 
+    })
 
     return {
       chatRoomName,
