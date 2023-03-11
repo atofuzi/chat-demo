@@ -23,7 +23,7 @@ module.exports = {
       "svg": "always",
       "math": "always"
     }],
-    "vue/v-on-event-hyphenation": "never"
+    "vue/v-on-event-hyphenation": 0
   },
   
 }

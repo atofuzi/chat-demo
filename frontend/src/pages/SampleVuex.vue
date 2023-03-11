@@ -5,38 +5,56 @@
     <p>3倍{{tripleCount}}</p>
     <button @click="increment(2)">+2</button>
     <button @click="decrement(2)">-2</button>
+    <div ref="btn" v-html="content"></div>
   </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
+<script> 
+import { onMounted, computed,  } from 'vue';
+import { useStore } from 'vuex';
 export default {
   name: 'LoginFromPage',
-  computed: {
-    ...mapGetters([ "doubleCount", "tripleCount" ]),
-    count() {
-      return this.$store.state.count;
-    },
-  },
-  // {
-  //   count() {
-  //     return this.$store.state.count;
-  //   },
-  //   // doubleCount() {
-  //   //   return this.$store.getters.doubleCount;
-  //   // },
-  //   // tripleCount() {
-  //   //   return this.$store.getters.tripleCount;
-  //   // },
-  // },
-  methods: {
-    increment(number) {
-      // this.$store.commit('increment', 2);
-      this.$store.dispatch('increment', number);
-    },
-    decrement(number) {
-      this.$store.dispatch('decrement', number);
-    },
+  setup() {
+    const store = useStore();
+    const content = `<button class="js-btn" value="12334">クリック</button>aaaa<button class="js-btn" value="56789">クリック</button>`;
+
+    const increment = (number) => {
+      store.dispatch('increment', number);
+    };
+    const decrement = (number) => {
+      store.dispatch('decrement', number);
+    };
+
+    const count = computed(() => {
+      return store.state.count;
+    });
+
+    const doubleCount = computed(() => {
+      return store.getters.doubleCount;
+    });
+    const tripleCount = computed(() => {
+      return store.getters.tripleCount;
+    });
+    const click = (chatMessageId) => {
+      console.log(chatMessageId);
+    }
+    onMounted (() => {
+      const element = document.getElementsByClassName("js-btn");
+      
+      for (let i = 0; i < element.length; i++) {
+        element[i].addEventListener("click", event => {
+          click(event.target.value);
+        })
+      };
+    });
+    return {
+      content,
+      increment,
+      decrement,
+      count,
+      doubleCount,
+      tripleCount,
+    }
   }
 }
 </script>
