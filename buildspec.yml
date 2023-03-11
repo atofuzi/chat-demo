@@ -12,8 +12,8 @@ phases:
       - cd /frontend
       - yarn build
   post_build:
-  commands:
-    - aws ssm put-parameter --name "chunk-js" --value "$(basename dist/css/app.*css)" --region=ap-northeast-1 --type String --overwrite
+    commands:
+      - aws ssm put-parameter --name "chunk-js" --value "$(basename dist/css/app.*css)" --region=ap-northeast-1 --type String --overwrite
 
 artifacts:
   files:
