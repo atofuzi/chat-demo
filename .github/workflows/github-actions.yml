@@ -7,29 +7,14 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  pre-build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: docker-compose version
-      run: |
-        docker-compose -v
   # build-1:
-  #   if: false
-  #   needs: checkout
+  #   if: true
   #   runs-on: ubuntu-latest
-  #   # steps:
-  #   # - uses: actions/checkout@v3
+  #   steps:
+  #   - uses: actions/checkout@v3
 
   #   - uses: satackey/action-docker-layer-caching@v0.0.11
   #     continue-on-error: true
-
-  #   - name: checkout branch
-  #     run: /usr/bin/git checkout --progress --force -B test
-    
-  #   - name: git branch
-  #     run: /usr/bin/git branch
 
   #   - name: .env copy for docker
   #     run: |
@@ -71,24 +56,57 @@ jobs:
 
   build-2:
     if: true
-    needs: pre-build
     runs-on: ubuntu-latest
     steps:
-    # - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-    - uses: satackey/action-docker-layer-caching@v0.0.11
-      continue-on-error: true
-      
-    - name: checkout branch
-      run: /usr/bin/git checkout --progress --force -B test
-    
-    - name: git branch
-      run: /usr/bin/git branch
+    # - uses: satackey/action-docker-layer-caching@v0.0.11
+    #   continue-on-error: true
+
     - name: .env copy for docker
       run: |
         cp -a .env.docker .env 
-
-    - name: docker-compose version
+    
+    - name: .env add
       run: |
-        docker-compose -v
+        echo "SAMPLE_VALUE=build-1" >> .env
+
+    - name: cat .env
+      run: cat .env
+    
+    - name: sleep 10s
+      run: sleep 10s
+
+    - name: cat .env
+      run: cat .env
+
+  build-2:
+    if: true
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    # - uses: satackey/action-docker-layer-caching@v0.0.11
+    #   continue-on-error: true
+
+    - name: .env copy for docker
+      run: |
+        cp -a .env.docker .env
+    
+    - name: cat.env
+      run: cat .env
+
+    - name: sleep 3s
+      run: sleep 3s
+
+    - name: .env add
+      run: |
+        echo "SAMPLE_VALUE=build-2" >> .env
+    
+    - name: sleep 10s
+      run: sleep 10s
+
+    - name: cat .env
+      run: cat .env
+    
 
