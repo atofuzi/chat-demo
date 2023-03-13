@@ -7,24 +7,9 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  build:
+  build-1:
     if: false
     runs-on: ubuntu-latest
-    # services:
-      # chat-demo-db-testing:
-      #   image: mysql:8.0
-      #   ports:
-      #     - 53306:3306
-      #   env:
-      #     MYSQL_ROOT_PASSWORD: chat
-      #     MYSQL_DATABASE: chat_db_testing
-      #     MYSQL_USER: chat
-      #     MYSQL_PASSWORD: chat
-      #   options: >-
-      #     --health-cmd "mysqladmin ping"
-      #     --health-interval 10s
-      #     --health-timeout 5s
-      #     --health-retries 5
     steps:
     - uses: actions/checkout@v3
 
@@ -52,14 +37,6 @@ jobs:
         until [ "$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q chat-demo-db-testing))" = 'healthy' ]; do
           sleep 1s
         done
-    
-    # - name: docker ps
-    #   run: |
-    #     docker ps
-
-    # - name: env copy
-    #   run: |
-    #     docker cp ./docker/db/my.cnf chat-demo-db-testing_1:/etc/mysql/conf.d/my.cnf
 
     - name: php version
       run: |
@@ -76,3 +53,21 @@ jobs:
     - name: phpunit
       run: |
         docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
+
+  build-2:
+    if: true
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: satackey/action-docker-layer-caching@v0.0.11
+      continue-on-error: true
+
+    - name: .env copy for docker
+      run: |
+        cp -a .env.docker .env 
+
+    - name: docker-compose version
+      run: |
+        docker-compose -v
+
