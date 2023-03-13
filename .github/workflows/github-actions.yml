@@ -9,6 +9,7 @@ on:
 jobs:
   checkout:
     runs-on: ubuntu-latest
+    steps:
     - uses: actions/checkout@v3
 
   build-1:
@@ -17,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     # steps:
     # - uses: actions/checkout@v3
-    
+
     - uses: satackey/action-docker-layer-caching@v0.0.11
       continue-on-error: true
 
@@ -79,7 +80,7 @@ jobs:
       run: /usr/bin/git checkout --progress --force -B test
     
     - name: git branch
-      run: /usr/bin/git
+      run: /usr/bin/git branch
     - name: .env copy for docker
       run: |
         cp -a .env.docker .env 
