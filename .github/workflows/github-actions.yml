@@ -16,6 +16,12 @@ jobs:
     - uses: satackey/action-docker-layer-caching@v0.0.11
       continue-on-error: true
 
+    - name: checkout branch
+      run: /usr/bin/git checkout --progress --force -B test
+    
+    - name: git branch
+      run: /usr/bin/git
+
     - name: .env copy for docker
       run: |
         cp -a .env.docker .env 
