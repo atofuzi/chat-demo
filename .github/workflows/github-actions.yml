@@ -11,7 +11,7 @@ env:
 
 jobs:
   build-1:
-    if: ${{ $DAY_OF_WEEK }}
+    if: ${{ DAY_OF_WEEK }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -58,7 +58,7 @@ jobs:
         docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
 
   build-2:
-    if: ${{ $DAY_OF_WEEK }}
+    if: ${{ DAY_OF_WEEK }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -84,7 +84,7 @@ jobs:
       run: cat .env
 
   build-3:
-    if: ${{ $DAY_OF_WEEK }}
+    if: ${{ DAY_OF_WEEK }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
