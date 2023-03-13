@@ -80,7 +80,7 @@ jobs:
     - name: cat .env
       run: cat .env
 
-  build-2:
+  build-3:
     if: true
     runs-on: ubuntu-latest
     steps:
