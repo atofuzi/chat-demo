@@ -7,12 +7,17 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  build-1:
-    if: false
+  checkout:
     runs-on: ubuntu-latest
-    steps:
     - uses: actions/checkout@v3
 
+  build-1:
+    if: false
+    needs: checkout
+    runs-on: ubuntu-latest
+    # steps:
+    # - uses: actions/checkout@v3
+    
     - uses: satackey/action-docker-layer-caching@v0.0.11
       continue-on-error: true
 
@@ -62,9 +67,10 @@ jobs:
 
   build-2:
     if: true
+    needs: checkout
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
+    # steps:
+    # - uses: actions/checkout@v3
 
     - uses: satackey/action-docker-layer-caching@v0.0.11
       continue-on-error: true
