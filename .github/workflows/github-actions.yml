@@ -5,13 +5,13 @@ on:
     branches: [ main, develop, feature/github-actions]
   pull_request:
     branches: [ main, develop ]
-
+    
 env:
-  DAY_OF_WEEK: Monday
+  DAY_OF_WEEK: ture
 
 jobs:
   build-1:
-    if: ${{ env.DAY_OF_WEEK == 'Monda' }}
+    if: ${{ ture == $DAY_OF_WEEK }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -58,7 +58,7 @@ jobs:
         docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
 
   build-2:
-    if: ${{ env.DAY_OF_WEEK == 'Monday' }}
+    if: ${{ ture == $DAY_OF_WEEK }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -84,7 +84,7 @@ jobs:
       run: cat .env
 
   build-3:
-    if: ${{ env.DAY_OF_WEEK == 'onday' }}
+    if: ${{ ture == $DAY_OF_WEEK }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
