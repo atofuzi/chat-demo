@@ -20,7 +20,7 @@ jobs:
       run: /usr/bin/git checkout --progress --force -B test
     
     - name: git branch
-      run: /usr/bin/git
+      run: /usr/bin/git branch
 
     - name: .env copy for docker
       run: |
