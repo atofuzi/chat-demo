@@ -13,7 +13,7 @@ env:
 
 jobs:
   build-1:
-    if: ${{ env.BUILD_1 }}
+    if: env.BUILD_1
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -60,7 +60,7 @@ jobs:
         docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
 
   build-2:
-    if: ${{ env.BUILD_2 }}
+    if: env.BUILD_2
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -86,7 +86,7 @@ jobs:
       run: cat .env
 
   build-3:
-    if: ${{ env.BUILD_3 }}
+    if: env.BUILD_3
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
