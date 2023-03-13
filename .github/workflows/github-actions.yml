@@ -6,56 +6,61 @@ on:
   pull_request:
     branches: [ main, develop ]
 
+env:
+  BUILD_1: false
+  BUILD_2: true
+  BUILD_3: true
+
 jobs:
-  # build-1:
-  #   if: true
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v3
+  build-1:
+    if: $BUILD_1
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
 
-  #   - uses: satackey/action-docker-layer-caching@v0.0.11
-  #     continue-on-error: true
+    - uses: satackey/action-docker-layer-caching@v0.0.11
+      continue-on-error: true
 
-  #   - name: .env copy for docker
-  #     run: |
-  #       cp -a .env.docker .env 
+    - name: .env copy for docker
+      run: |
+        cp -a .env.docker .env 
 
-  #   - name: docker-compose version
-  #     run: |
-  #       docker-compose -v
+    - name: docker-compose version
+      run: |
+        docker-compose -v
 
-  #   - name: docker-compose up
-  #     run: |
-  #       docker-compose build chat-demo-db-testing |
-  #       docker-compose build chat-demo-db |
-  #       docker-compose build chat-demo-backend |
-  #       docker-compose up -d chat-demo-db-testing chat-demo-db  chat-demo-backend
+    - name: docker-compose up
+      run: |
+        docker-compose build chat-demo-db-testing |
+        docker-compose build chat-demo-db |
+        docker-compose build chat-demo-backend |
+        docker-compose up -d chat-demo-db-testing chat-demo-db  chat-demo-backend
     
-  #   - name: Wait for starting
-  #     run: |
-  #       set -x
-  #       until [ "$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q chat-demo-db-testing))" = 'healthy' ]; do
-  #         sleep 1s
-  #       done
+    - name: Wait for starting
+      run: |
+        set -x
+        until [ "$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q chat-demo-db-testing))" = 'healthy' ]; do
+          sleep 1s
+        done
 
-  #   - name: php version
-  #     run: |
-  #       docker exec chat-demo-backend  /bin/sh -c "php -v"
+    - name: php version
+      run: |
+        docker exec chat-demo-backend  /bin/sh -c "php -v"
 
-  #   - name: composer version
-  #     run: |
-  #       docker exec chat-demo-backend  /bin/sh -c "composer -V"
+    - name: composer version
+      run: |
+        docker exec chat-demo-backend  /bin/sh -c "composer -V"
 
-  #   - name: composer install
-  #     run: |
-  #       docker exec chat-demo-backend  /bin/sh -c "composer install"
+    - name: composer install
+      run: |
+        docker exec chat-demo-backend  /bin/sh -c "composer install"
     
-  #   - name: phpunit
-  #     run: |
-  #       docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
+    - name: phpunit
+      run: |
+        docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
 
   build-2:
-    if: true
+    if: $BUILD_2
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -81,7 +86,7 @@ jobs:
       run: cat .env
 
   build-3:
-    if: true
+    if: $BUILD_3
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
