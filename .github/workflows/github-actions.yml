@@ -71,7 +71,7 @@ jobs:
 
   build-2:
     if: true
-    needs: checkout
+    needs: pre-build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
