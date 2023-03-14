@@ -5,14 +5,16 @@ on:
     branches: [ main, develop, feature/github-actions]
   pull_request:
     branches: [ main, develop ]
-    
+
 env:
-  DAY_OF_WEEK: ture
+  BUILD_1: false
+  BUILD_2: true
+  BUILD_3: true
 
 jobs:
   build-1:
-    if: ${{ DAY_OF_WEEK }}
     runs-on: ubuntu-latest
+    if: ${{ env.BUILD_1 }}
     steps:
     - uses: actions/checkout@v3
 
@@ -58,8 +60,8 @@ jobs:
         docker exec chat-demo-backend  /bin/sh -c  "php artisan test"
 
   build-2:
-    if: ${{ DAY_OF_WEEK }}
     runs-on: ubuntu-latest
+    if: ${{ env.BUILD_2 }}
     steps:
     - uses: actions/checkout@v3
 
@@ -84,8 +86,8 @@ jobs:
       run: cat .env
 
   build-3:
-    if: ${{ DAY_OF_WEEK }}
     runs-on: ubuntu-latest
+    if: ${{ env.BUILD_3 }}
     steps:
     - uses: actions/checkout@v3
 
