@@ -8,7 +8,7 @@ const server = http.Server(app);
 
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:8087",
+    origin: "http://localhost:8007",
     credentials: true
   }
 });

@@ -22,7 +22,7 @@ export default {
 
     const message = ref('');
     const messageList = reactive([]);
-    const socket = io('ws://localhost:8087', {
+    const socket = io('ws://localhost:8007', {
       withCredentials: true,
     });
 
