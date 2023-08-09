@@ -35,7 +35,7 @@ services:
       - TZ=Asia/Tokyo
     networks:
       - chat-demo-network
-    
+
   chat-demo-frontend:
     build:
       context: .
@@ -51,13 +51,14 @@ services:
   chat-demo-backend:
     build:
       context: .
+      target: prod
       dockerfile: ./docker/php/Dockerfile
     container_name: chat-demo-backend
-    volumes:
-      # - "chat-demo-socket:/var/run/php-fpm/"
-      - ./backend:/var/www/
-      - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
-      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+    # volumes:
+    #   # - "chat-demo-socket:/var/run/php-fpm/"
+    #   - ./backend:/var/www/
+    #   - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    #   - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - chat-demo-db
     networks:
@@ -85,8 +86,8 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
-      TZ: 'Asia/Tokyo'
-    command:  >
+      TZ: "Asia/Tokyo"
+    command: >
       bash -c '
       touch /var/log/general.log &&
       chown mysql:mysql /var/log/general.log &&
@@ -117,9 +118,9 @@ services:
       MYSQL_DATABASE: ${DB_TESTING_DATABASE}
       MYSQL_USER: ${DB_TESTING_USERNAME}
       MYSQL_PASSWORD: ${DB_TESTING_PASSWORD}
-      TZ: 'Asia/Tokyo'
+      TZ: "Asia/Tokyo"
     ## ログをターミナルに標準出力する確認
-    command:  >
+    command: >
       bash -c '
       touch /var/log/general.log &&
       chown mysql:mysql /var/log/general.log &&
@@ -136,10 +137,10 @@ services:
         max-size: "10k"
         max-file: "5"
     healthcheck:
-        test: ["CMD", "mysqladmin", "ping"]
-        interval: 10s
-        timeout: 5s
-        retries: 5
+      test: ["CMD", "mysqladmin", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   chat-demo-socket:
     build:
@@ -168,7 +169,7 @@ services:
       test: ["CMD", "redis-cli", "ping"]
       retries: 3
       timeout: 5s
-  
+
   chat-demo-minio:
     image: quay.io/minio/minio
     container_name: chat-demo-minio
